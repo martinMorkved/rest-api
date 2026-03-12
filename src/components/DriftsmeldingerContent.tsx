@@ -92,9 +92,7 @@ export function DriftsmeldingerContent() {
 
   return (
     <>
-      {/* Mørkeblå header med tittel og prikkemønster */}
       <header className="relative overflow-hidden bg-[#1e3a5f] px-6 py-10 sm:px-8 sm:py-12">
-        {/* Prikkemønster som falmer mot høyre */}
         <div
           className="absolute inset-0 opacity-90"
           style={{
@@ -110,7 +108,6 @@ export function DriftsmeldingerContent() {
         </h1>
       </header>
 
-      {/* Hvit innholdsseksjon */}
       <div className="flex flex-1 flex-col bg-white px-6 py-10 sm:px-8 sm:py-12">
         {loading && (
           <p className="text-slate-600">Laster driftsstatus …</p>

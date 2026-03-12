@@ -1,4 +1,4 @@
-import { AdminPanel } from '@/components/AdminPanel';
+import { AdminPanelWrapper } from '@/components/AdminPanelWrapper';
 import { CustomerSide } from '@/components/CustomerSide';
 import { BellIcon, DatabaseIcon, NetworkIcon, PcIcon } from '@/components/FeatureIcons';
 import Image from 'next/image';
@@ -6,7 +6,7 @@ import Image from 'next/image';
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-slate-200 text-slate-900">
-      <div className="mx-auto flex h-screen max-w-6xl items-stretch gap-0 px-4 py-6">
+      <AdminPanelWrapper>
         <CustomerSide>
           {/* Hero */}
           <header className="px-6 py-8">
@@ -32,7 +32,7 @@ export default function HomePage() {
             </p>
           </header>
 
-          {/* Ikoner / “features” */}
+          {/* Icons / features */}
           <div className="grid grid-cols-2 gap-6 px-6 pb-8 sm:grid-cols-4">
             {[
               { label: 'Oppetid', Icon: PcIcon },
@@ -54,9 +54,7 @@ export default function HomePage() {
             ))}
           </div>
         </CustomerSide>
-
-        <AdminPanel />
-      </div>
+      </AdminPanelWrapper>
     </main>
   );
 }

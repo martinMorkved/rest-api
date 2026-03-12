@@ -9,7 +9,12 @@ const STATUS_OPTIONS: { value: StatusValue; label: string }[] = [
   { value: 'outage', label: 'Feil' },
 ];
 
-export function AdminPanel() {
+type AdminPanelProps = {
+  /** Kalles etter vellykket «Oppdater status» – f.eks. for å lukke mobil-overlay */
+  onSuccess?: () => void;
+};
+
+export function AdminPanel({ onSuccess }: AdminPanelProps = {}) {
   const [data, setData] = useState<StatusResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -66,6 +71,7 @@ export function AdminPanel() {
       setData(json as StatusResponse);
       setError(null);
       window.dispatchEvent(new CustomEvent('status-updated'));
+      onSuccess?.();
     } catch {
       setError('Kunne ikke oppdatere status');
     } finally {
@@ -76,7 +82,7 @@ export function AdminPanel() {
   if (loading) {
     return (
       <section
-        className="z-10 self-center flex w-full flex-shrink-0 flex-col overflow-y-auto rounded-l-2xl border border-slate-700 border-r-0 bg-slate-900/95 shadow-xl backdrop-blur sm:w-80 lg:ml-[-1.5rem]"
+        className="z-10 flex w-full max-w-full flex-shrink-0 flex-col overflow-y-auto rounded-l-2xl border border-slate-700 border-r-0 bg-slate-900/95 shadow-xl backdrop-blur sm:w-80"
         style={{ maxHeight: '85vh' }}
       >
         <div className="p-5">
@@ -91,7 +97,7 @@ export function AdminPanel() {
 
   return (
     <section
-      className="z-10 self-center flex w-full flex-shrink-0 flex-col overflow-y-auto rounded-l-2xl border border-slate-700 border-r-0 bg-slate-900/95 shadow-xl backdrop-blur sm:w-80 lg:ml-[-1.5rem]"
+      className="z-10 flex w-full max-w-full flex-shrink-0 flex-col overflow-y-auto rounded-l-2xl border border-slate-700 border-r-0 bg-slate-900/95 shadow-xl backdrop-blur sm:w-80"
       style={{ maxHeight: '85vh' }}
     >
       <div className="p-5 space-y-4">
@@ -99,7 +105,7 @@ export function AdminPanel() {
           Admin / API-kontrollpanel
         </h2>
 
-        {/* Nåværende JSON */}
+        {/* JSON */}
         <div>
           <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-slate-500">
             Nåværende respons (GET /api/status)
@@ -107,15 +113,15 @@ export function AdminPanel() {
           <pre className="rounded-lg border border-slate-700 bg-slate-950 p-3 text-xs text-slate-300 overflow-x-auto max-h-32 overflow-y-auto">
             {data
               ? JSON.stringify(
-                  {
-                    status: data.status,
-                    message: data.message,
-                    expectedDowntime: data.expectedDowntime,
-                    updatedAt: data.updatedAt,
-                  },
-                  null,
-                  2
-                )
+                {
+                  status: data.status,
+                  message: data.message,
+                  expectedDowntime: data.expectedDowntime,
+                  updatedAt: data.updatedAt,
+                },
+                null,
+                2
+              )
               : '—'}
           </pre>
         </div>
