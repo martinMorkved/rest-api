@@ -1,5 +1,7 @@
 import { AdminPanel } from '@/components/AdminPanel';
 import { CustomerSide } from '@/components/CustomerSide';
+import { BellIcon, DatabaseIcon, NetworkIcon, PcIcon } from '@/components/FeatureIcons';
+import Image from 'next/image';
 
 export default function HomePage() {
   return (
@@ -13,36 +15,41 @@ export default function HomePage() {
                 className="flex h-full w-full items-center justify-center text-slate-500"
                 aria-hidden
               >
-                Hero-bilde
+                <Image
+                  src="/images/hero.jpg"
+                  alt="Hero-bilde"
+                  width={1200}
+                  height={600}
+                  className="h-full w-full object-cover"
+                />
               </div>
             </div>
-            <h1 className="mb-2 text-2xl font-semibold text-slate-900">
-              Velkommen
+            <h1 className="mb-2 text-2xl font-semibold text-center text-slate-900">
+              Velkommen til kontrollrommet
             </h1>
-            <p className="max-w-xl text-slate-600">
-              Kort intro-tekst som beskriver tjenesten eller selskapet. Du kan
-              erstatte dette med egen tekst når du har bestemt innhold.
+            <p className="max-w-md mx-auto text-center text-slate-600">
+              Én enkel oversikt over driften, så du slipper å lure på om feilen er hos deg eller hos oss.
             </p>
           </header>
 
-          {/* Icons  */}
+          {/* Ikoner / “features” */}
           <div className="grid grid-cols-2 gap-6 px-6 pb-8 sm:grid-cols-4">
             {[
-              { label: 'Første' },
-              { label: 'Andre' },
-              { label: 'Tredje' },
-              { label: 'Fjerde' },
-            ].map(({ label }) => (
+              { label: 'Oppetid', Icon: PcIcon },
+              { label: 'Nettverk', Icon: NetworkIcon },
+              { label: 'Database', Icon: DatabaseIcon },
+              { label: 'Varsler', Icon: BellIcon },
+            ].map(({ label, Icon }) => (
               <div
                 key={label}
-                className="flex flex-col items-center gap-2 text-center"
+                className="group flex flex-col items-center gap-2 text-center transition-transform duration-150 hover:-translate-y-1"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
-                  <span className="text-2xl" aria-hidden>
-                    •
-                  </span>
+                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-slate-100 shadow-sm transition-transform duration-150 group-hover:scale-110 group-hover:shadow-md">
+                  <Icon />
                 </div>
-                <span className="text-sm font-medium text-slate-700">{label}</span>
+                <span className="text-sm font-medium text-slate-700">
+                  {label}
+                </span>
               </div>
             ))}
           </div>
