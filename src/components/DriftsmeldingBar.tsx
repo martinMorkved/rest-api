@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { StatusResponse, StatusValue } from '@/app/api/status/route';
+import { ArrowRightIcon } from './icons/ArrowRight';
 
 export function DriftsmeldingBar() {
   const [status, setStatus] = useState<StatusValue | null>(null);
@@ -38,7 +39,9 @@ export function DriftsmeldingBar() {
       role="status"
       aria-live="polite"
     >
-      Driftsmelding
+
+      <a className="underline flex justify-center items-center gap-2" href="/driftsstatus">Driftsmelding <ArrowRightIcon className="h-3.5 w-3.5" /></a>
+
     </div>
   );
 }
